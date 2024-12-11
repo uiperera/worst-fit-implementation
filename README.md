@@ -3,17 +3,17 @@
 ## Assumptions
 
 - **Job Queue**: The jobs and their memory requirements are:
-  - J1: 212 KB
-  - J2: 417 KB
-  - J3: 112 KB
-  - J4: 424 KB
+  - J1: 315 KB
+  - J2: 200 KB
+  - J3: 145 KB
+  - J4: 520 KB
 
 - **Free Memory Blocks**: Available memory blocks are:
-  - Block 01: 100 KB
-  - Block 02: 500 KB
-  - Block 03: 200 KB
-  - Block 04: 300 KB
-  - Block 05: 600 KB
+  - Block 01: 150 KB
+  - Block 02: 450 KB
+  - Block 03: 300 KB
+  - Block 04: 600 KB
+  - Block 05: 500 KB
 
 ## Implementation
 
@@ -21,34 +21,30 @@ This implementation uses an array data structure to dynamically allocate memory 
 
 ### Explanation of Allocation
 
-1. **Allocation of J1 (212 KB)**
+1. **Allocation of J1 (315 KB)**
    - Search for the largest free block available:
-     - Block 02: 500 KB - 212 KB = 288 KB
-     - Block 04: 300 KB - 212 KB = 88 KB
-     - Block 05: 600 KB - 212 KB = 388 KB
-   - **Result**: J1 is allocated to **Block 05**.
+     - Block 02: 450 KB - 315 KB = 135 KB
+     - Block 03: 300 KB - 315 KB = Not sufficient
+     - Block 04: 600 KB - 315 KB = 285 KB
+     - Block 05: 500 KB - 315 KB = 185 KB
+   - **Result**: J1 is allocated to **Block 04**.
 
-2. **Allocation of J2 (417 KB)**
+2. **Allocation of J2 (200 KB)**
    - Search for the largest free block available:
-     - Block 02: 500 KB - 417 KB = 83 KB
-   - **Result**: J2 is allocated to **Block 02**.
+     - Block 02: 450 KB - 200 KB = 250 KB
+     - Block 05: 500 KB - 200 KB = 300 KB
+   - **Result**: J2 is allocated to **Block 05**.
 
-3. **Allocation of J3 (112 KB)**
+3. **Allocation of J3 (145 KB)**
    - Search for the largest free block available:
-     - Block 03: 200 KB - 112 KB = 88 KB
-     - Block 04: 300 KB - 112 KB = 188 KB
-     - Block 05: 388 KB - 112 KB = 276 KB
-   - **Result**: J3 is allocated to **Block 05**.
+     - Block 02: 450 KB - 145 KB = 305 KB
+     - Block 01: 150 KB - 145 KB = 5 KB
+   - **Result**: J3 is allocated to **Block 02**.
 
-4. **Allocation of J4 (424 KB)**
+4. **Allocation of J4 (520 KB)**
    - Search for the largest free block available:
-     - None of the remaining blocks can accommodate 424 KB.
+     - Block 04: 285 KB - Not sufficient
+     - Block 05: 300 KB - Not sufficient
+     - Block 02: 305 KB - Not sufficient
+     - Block 01: 5 KB - Not sufficient
    - **Result**: J4 cannot be allocated due to insufficient memory.
-
-## How It Works
-
-1. **Input Fields**: Define memory blocks and job sizes at runtime.
-2. **Algorithm**: The Worst-Fit Algorithm finds the largest available memory block for each job.
-3. **Dynamic Allocation**: Memory allocation decisions are made dynamically based on available resources and job sizes.
-
-
